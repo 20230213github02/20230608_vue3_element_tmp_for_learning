@@ -3,13 +3,12 @@
     <div>
         <h1></h1>
         <div>
-            <el-table :data="tableData" style="width: 100%">
-                <el-table-column fixed prop="date" label="Date" width="150" />
-                <el-table-column prop="name" label="Name" width="120" />
-                <el-table-column prop="state" label="State" width="120" />
-                <el-table-column prop="city" label="City" width="120" />
-                <el-table-column prop="address" label="Address" width="600" />
-                <el-table-column prop="zip" label="Zip" width="120" />
+            <el-table :data="applications" style="width: 100%">
+                <el-table-column fixed prop="appUketsukeNo" label="受付番号" width="150" />
+                <el-table-column prop="appShinseiKubun" label="申請区分" width="120" />
+                <el-table-column prop="appShinseiDate" label="表紙_申請日" width="120" />
+                <el-table-column prop="appKokaiyoStatus" label="公開用ステータス" width="120" />
+                <el-table-column prop="appShinseishaKoshinDateTime" label="申請者更新日時" width="600" />
                 <el-table-column fixed="right" label="Operations" width="120">
                     <template #default>
                         <el-button link type="primary" size="small" @click="handleClick">Detail</el-button>
