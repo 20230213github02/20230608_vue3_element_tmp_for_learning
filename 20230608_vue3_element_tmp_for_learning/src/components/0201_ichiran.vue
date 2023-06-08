@@ -37,15 +37,19 @@
                 {{ application }}
             </div> -->
         </div> 
+        <!-- ページネーション機能の設定 -->
         <div class="flex items-center mb-4">
+            <!-- small 属性-->
             <el-radio-group v-model="small" class="mr-4">
                 <el-radio-button :label="false">default</el-radio-button>
                 <el-radio-button :label="true">small</el-radio-button>
             </el-radio-group>
+            <!-- 背景属性 -->
             <div>
                 background:
                 <el-switch v-model="background" class="ml-2" />
             </div>
+            <!-- disable 属性 -->
             <div class="ml-4">
                 disabled: <el-switch v-model="disabled" class="ml-2" />
             </div>
@@ -70,20 +74,34 @@ import axios from 'axios';
 import { onMounted } from 'vue';
 import { ref } from 'vue'
 
+// 現在クエリされた申請情報
 const applications = ref('');
+// クエリされたお知らせ情報
 const notifacations = ref('');
+// ページ数
 const applicationPageCount = ref('');
+// 各ページの申請情報数
 const applicationPageSize = ref(10);
+// 申請数
 const applicationCount = ref('');
+// 現在のページ番号
 const currentPage = ref(1);
+// 一ページの申請をクエリする
 const getApplicationPage = (pageNum) => {
+    // 一ページの申請をクエリする
     axios.get('http://10.211.55.2:8815/Application/page/' + pageNum + '/' + applicationPageSize.value).then(response => {
         console.log(response);
+        if (response.status == '200') {
+        // ページ数をクエリする
         applicationPageCount.value = response.data.pages;
+        // 申請数をクエリする
         applicationCount.value = response.data.total * 1;
+        // 現在クエリされた申請情報をクエリする
         applications.value = response.data.list;
+        }
     })
 };
+// お知らせをクエリする
 const getNotifications = () =>{
     axios.get('http://10.211.55.2:8815/Notification/all').then(response => {
         if (response.status == '200') {
@@ -91,24 +109,31 @@ const getNotifications = () =>{
         }
     });
 }
+// ページに入る時にクエリする
 onMounted(() => {
-
+    // 一ページの申請をクエリする
     getApplicationPage(1);
+    // お知らせをクエリする
     getNotifications();
 }
 );
-
+// small属性
 const small = ref(false)
+// background属性
 const background = ref(false)
+// disabled属性
 const disabled = ref(false)
 
+// 各ページの申請情報数変更時の行為
 const handleSizeChange = (val) => {
+    // 一ページの申請をクエリする
     getApplicationPage(currentPage.value);
-    console.log(`${val} items per page`)
+    // console.log(`${val} items per page`)
 }
+// ページ変更時の行為
 const handleCurrentChange = (val) => {
-
-    console.log(`current page: ${val}`)
+    // console.log(`current page: ${val}`)
+    // 一ページの申請をクエリする
     getApplicationPage(currentPage.value);
 }
 </script>
