@@ -31,47 +31,49 @@ import { ref } from 'vue'
 const applications = ref('');
 const notifacations = ref('');
 const applicationPageCount = ref('');
-const applicationPageSize= ref(10);
+const applicationPageSize = ref(10);
 // const currentPage = ref(1);
 const getApplicationPage = (pageNum) => {
-            axios.get('http://localhost:8815/Application/page/' + pageNum + '/' + applicationPageSize.value).then(response => {
-                console.log(response);
-                applicationPageCount.value = response.data.pages;
-            })
-        };
-onMounted(()=>{axios.get('http://localhost:8815/Application/all').then(response => {
-            // for test add by ZHY
-            // console.log(response)
-            if (response.status == '200') {
-                applications.value = response.data.data;
+    axios.get('http://localhost:8815/Application/page/' + pageNum + '/' + applicationPageSize.value).then(response => {
+        console.log(response);
+        applicationPageCount.value = response.data.pages;
+    })
+};
+onMounted(() => {
+    axios.get('http://localhost:8815/Application/all').then(response => {
+        // for test add by ZHY
+        // console.log(response)
+        if (response.status == '200') {
+            applications.value = response.data.data;
 
-                //for test add by ZHY
-                // console.log(this.applications);
-            }
-        });
-        axios.get('http://localhost:8815/Notification/all').then(response => {
-            // console.log(response);
-            if (response.status == '200') {
-                notifacations.value = response.data.data;
-                // console.log(this.notifacations);
-            }
-        });
-        getApplicationPage(1);}
-    );
+            //for test add by ZHY
+            // console.log(this.applications);
+        }
+    });
+    axios.get('http://localhost:8815/Notification/all').then(response => {
+        // console.log(response);
+        if (response.status == '200') {
+            notifacations.value = response.data.data;
+            // console.log(this.notifacations);
+        }
+    });
+    getApplicationPage(1);
+}
+);
 
 // export default {
 //     mounted() {
-        
+
 
 //     },
-    // methods: {
-    //     getApplicationPage(pageNum) {
-    //         axios.get('http://localhost:8815/Application/page/' + pageNum + '/' + this.applicationPageSize).then(response => {
-    //             console.log(response);
-    //             this.applicationPageCount = response.data.pages;
-    //         })
-    //     },
-        
+// methods: {
+//     getApplicationPage(pageNum) {
+//         axios.get('http://localhost:8815/Application/page/' + pageNum + '/' + this.applicationPageSize).then(response => {
+//             console.log(response);
+//             this.applicationPageCount = response.data.pages;
+//         })
+//     },
+
 //     }
 // }
 
@@ -87,10 +89,10 @@ const background = ref(false)
 const disabled = ref(false)
 
 const handleSizeChange = (val) => {
-  console.log(`${val} items per page`)
+    console.log(`${val} items per page`)
 }
 const handleCurrentChange = (val) => {
-  console.log(`current page: ${val}`)
+    console.log(`current page: ${val}`)
 }
 </script>
 <style></style>
