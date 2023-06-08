@@ -50,7 +50,7 @@ const getApplicationPage = (pageNum) => {
     axios.get('http://localhost:8815/Application/page/' + pageNum + '/' + applicationPageSize.value).then(response => {
         console.log(response);
         applicationPageCount.value = response.data.pages;
-        applicationCount.value = response.data.total;
+        applicationCount.value = response.data.total * 1;
         applications.value = response.data.list;
     })
 };
