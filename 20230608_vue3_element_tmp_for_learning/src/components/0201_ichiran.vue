@@ -2,11 +2,30 @@
     <div>fwe</div>
     <div>
         <h1></h1>
+        <div>
+            <!-- {{ applications }} -->
+            <div v-for="application in applications">
+                {{ application }}
+            </div>
+        </div>
+        <div class="flex items-center mb-4">
+            <el-radio-group v-model="small" class="mr-4">
+                <el-radio-button :label="false">default</el-radio-button>
+                <el-radio-button :label="true">small</el-radio-button>
+            </el-radio-group>
+            <div>
+                background:
+                <el-switch v-model="background" class="ml-2" />
+            </div>
+            <div class="ml-4">
+                disabled: <el-switch v-model="disabled" class="ml-2" />
+            </div>
+        </div>
         <div class="demo-pagination-block">
             <div class="demonstration">All combined</div>
-            <el-pagination v-model:current-page="currentPage4" v-model:page-size="pageSize4"
-                :page-sizes="[100, 200, 300, 400]" :small="small" :disabled="disabled" :background="background"
-                layout="total, sizes, prev, pager, next, jumper" :total="400" @size-change="handleSizeChange"
+            <el-pagination v-model:current-page="currentPage" v-model:page-size="applicationPageSize"
+                :page-sizes="[10, 20, 50, 100, 300, 400]" :small="small" :disabled="disabled" :background="background"
+                layout="total, sizes, prev, pager, next, jumper" :total="applicationPageCount" @size-change="handleSizeChange"
                 @current-change="handleCurrentChange" />
         </div>
         <el-form>
@@ -31,6 +50,7 @@ const getApplicationPage = (pageNum) => {
     axios.get('http://localhost:8815/Application/page/' + pageNum + '/' + applicationPageSize.value).then(response => {
         console.log(response);
         applicationPageCount.value = response.data.pages;
+        applications.value = response.data.list;
     })
 };
 onMounted(() => {
@@ -86,7 +106,9 @@ const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
 }
 const handleCurrentChange = (val) => {
+
     console.log(`current page: ${val}`)
+    getApplicationPage(currentPage.value);
 }
 </script>
 <style></style>
