@@ -60,7 +60,7 @@ const applicationPageSize = ref(10);
 const applicationCount = ref('');
 const currentPage = ref(1);
 const getApplicationPage = (pageNum) => {
-    axios.get('http://localhost:8815/Application/page/' + pageNum + '/' + applicationPageSize.value).then(response => {
+    axios.get('http://10.211.55.2:8815/Application/page/' + pageNum + '/' + applicationPageSize.value).then(response => {
         console.log(response);
         applicationPageCount.value = response.data.pages;
         applicationCount.value = response.data.total * 1;
@@ -68,7 +68,7 @@ const getApplicationPage = (pageNum) => {
     })
 };
 onMounted(() => {
-    axios.get('http://localhost:8815/Notification/all').then(response => {
+    axios.get('http://10.211.55.2:8815/Notification/all').then(response => {
         if (response.status == '200') {
             notifacations.value = response.data.data;
         }
