@@ -3,6 +3,20 @@
     <div>
         <h1></h1>
         <div>
+            <el-table :data="tableData" style="width: 100%">
+                <el-table-column fixed prop="date" label="Date" width="150" />
+                <el-table-column prop="name" label="Name" width="120" />
+                <el-table-column prop="state" label="State" width="120" />
+                <el-table-column prop="city" label="City" width="120" />
+                <el-table-column prop="address" label="Address" width="600" />
+                <el-table-column prop="zip" label="Zip" width="120" />
+                <el-table-column fixed="right" label="Operations" width="120">
+                    <template #default>
+                        <el-button link type="primary" size="small" @click="handleClick">Detail</el-button>
+                        <el-button link type="primary" size="small">Edit</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
             <div v-for="application in applications">
                 {{ application }}
             </div>
@@ -24,8 +38,8 @@
             <div class="demonstration">All combined</div>
             <el-pagination v-model:current-page="currentPage" v-model:page-size="applicationPageSize"
                 :page-sizes="[10, 20, 50, 100, 300, 400]" :small="small" :disabled="disabled" :background="background"
-                layout="total, sizes, prev, pager, next, jumper" :total="applicationCount"
-                @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+                layout="total, sizes, prev, pager, next, jumper" :total="applicationCount" @size-change="handleSizeChange"
+                @current-change="handleCurrentChange" />
         </div>
         <el-form>
 
@@ -69,7 +83,7 @@ const background = ref(false)
 const disabled = ref(false)
 
 const handleSizeChange = (val) => {
-    getApplicationPage(currentPage.value); 
+    getApplicationPage(currentPage.value);
     console.log(`${val} items per page`)
 }
 const handleCurrentChange = (val) => {
@@ -79,10 +93,11 @@ const handleCurrentChange = (val) => {
 }
 </script>
 <style>
-.demo-pagination-block + .demo-pagination-block {
-  margin-top: 10px;
+.demo-pagination-block+.demo-pagination-block {
+    margin-top: 10px;
 }
+
 .demo-pagination-block .demonstration {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 </style>
