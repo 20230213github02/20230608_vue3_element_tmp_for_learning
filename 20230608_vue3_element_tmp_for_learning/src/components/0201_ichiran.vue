@@ -1,5 +1,5 @@
 <template>
-    <div>fwe</div>
+    <!-- <div>fwe</div> -->
     <div>
         <h1></h1>
         <div>
@@ -30,9 +30,9 @@
         <el-form>
 
         </el-form>
-        <div>
+        <!-- <div>
             {{ applicationPageCount }}
-        </div>
+        </div> -->
     </div>
 </template>
 <script setup>
@@ -69,6 +69,7 @@ const background = ref(false)
 const disabled = ref(false)
 
 const handleSizeChange = (val) => {
+    getApplicationPage(currentPage.value); 
     console.log(`${val} items per page`)
 }
 const handleCurrentChange = (val) => {
