@@ -36,7 +36,7 @@
             <!-- <div v-for="application in applications">
                 {{ application }}
             </div> -->
-        </div> 
+        </div>
         <!-- ページネーション機能の設定 -->
         <div class="flex items-center mb-4">
             <!-- small 属性-->
@@ -92,17 +92,17 @@ const getApplicationPage = (pageNum) => {
     axios.get('http://10.211.55.2:8815/Application/page/' + pageNum + '/' + applicationPageSize.value).then(response => {
         console.log(response);
         if (response.status == '200') {
-        // ページ数をクエリする
-        applicationPageCount.value = response.data.pages;
-        // 申請数をクエリする
-        applicationCount.value = response.data.total * 1;
-        // 現在クエリされた申請情報をクエリする
-        applications.value = response.data.list;
+            // ページ数をクエリする
+            applicationPageCount.value = response.data.pages;
+            // 申請数をクエリする
+            applicationCount.value = response.data.total * 1;
+            // 現在クエリされた申請情報をクエリする
+            applications.value = response.data.list;
         }
     })
 };
 // お知らせをクエリする
-const getNotifications = () =>{
+const getNotifications = () => {
     axios.get('http://10.211.55.2:8815/Notification/all').then(response => {
         if (response.status == '200') {
             notifacations.value = response.data.data;
