@@ -16,10 +16,27 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <div v-for="application in applications">
+            <!-- <div v-for="application in applications">
                 {{ application }}
-            </div>
+            </div> -->
         </div>
+        <div>
+            <el-table :data="notifacations" style="width: 100%">
+                <el-table-column fixed prop="ntcID" label="ID" width="150" />
+                <el-table-column prop="ntcDATE" label="掲載開始日" width="120" />
+                <el-table-column prop="ntcTITLE" label="タイトル" width="120" />
+                <el-table-column prop="ntcJUYO" label="重要内容" width="120" />
+                <el-table-column fixed="right" label="Operations" width="120">
+                    <template #default>
+                        <el-button link type="primary" size="small" @click="handleClick">Detail</el-button>
+                        <el-button link type="primary" size="small">Edit</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <!-- <div v-for="application in applications">
+                {{ application }}
+            </div> -->
+        </div> 
         <div class="flex items-center mb-4">
             <el-radio-group v-model="small" class="mr-4">
                 <el-radio-button :label="false">default</el-radio-button>
@@ -67,13 +84,17 @@ const getApplicationPage = (pageNum) => {
         applications.value = response.data.list;
     })
 };
-onMounted(() => {
+const getNotifications = () =>{
     axios.get('http://10.211.55.2:8815/Notification/all').then(response => {
         if (response.status == '200') {
             notifacations.value = response.data.data;
         }
     });
+}
+onMounted(() => {
+
     getApplicationPage(1);
+    getNotifications();
 }
 );
 
