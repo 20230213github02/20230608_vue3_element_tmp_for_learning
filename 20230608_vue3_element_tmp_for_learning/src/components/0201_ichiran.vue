@@ -23,7 +23,7 @@
         <div>
             <el-table :data="notifacations" style="width: 100%">
                 <el-table-column fixed prop="ntcID" label="ID" width="150" />
-                <el-table-column prop="ntcDATE" label="掲載開始日" width="120" />
+                <el-table-column prop="ntcDATE" label="掲載開始日" width="120" :formatter="dateFormat" />
                 <el-table-column prop="ntcTITLE" label="タイトル" width="120" />
                 <el-table-column prop="ntcJUYO" label="重要内容" width="120" />
                 <el-table-column fixed="right" label="Operations" width="120">
@@ -136,6 +136,16 @@ const handleCurrentChange = (val) => {
     // 一ページの申請をクエリする
     getApplicationPage(currentPage.value);
 }
+
+const dateFormat=(date)=>{
+          if (date === undefined) { 
+            return ""; 
+          } 
+          var moment = require("moment");
+          return moment(date).format("YYYY-MM-DD HH:mm:ss"); 
+    }
+
+const handleClick =()=>{}
 </script>
 <style>
 .demo-pagination-block+.demo-pagination-block {
